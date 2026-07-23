@@ -1,0 +1,7 @@
+﻿ID,Nombre,Categoría,Presentación,Disponible,Precio,Observaciones
+1,Agua purificada,Producto,Garrafón 20 L,Sí,$35.00 MXN,Producto principal
+2,Garrafón vacío,Producto,20 L,Sí,$150.00 MXN,Envase nuevo para intercambio
+3,Relleno de garrafón,Servicio,20 L,Sí,$25.00 MXN,Servicio de recarga
+4,Entrega a domicilio,Servicio,Zona de cobertura,Sí,Sin costo adicional,Sujeto a rutas
+5,Lavado de garrafones,Servicio,20 L,Sí,Incluido en el servicio,Sanitización del envase
+6,Atención a negocios,Servicio,Empresas,Sí,Precio preferencial según volumen,Servicio para clientes comerciales
