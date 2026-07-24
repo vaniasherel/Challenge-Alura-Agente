@@ -6,7 +6,8 @@ from pathlib import Path
 from langchain_chroma import Chroma
 
 # Carpeta donde se guardará la base vectorial
-VECTOR_DB = Path(__file__).resolve().parents[2] / "data" / "chroma_db"
+import tempfile
+VECTOR_DB = Path(tempfile.gettempdir()) / "chroma_db"
 
 
 def create_vectorstore(chunks, embedding_model):
