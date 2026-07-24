@@ -17,6 +17,25 @@ from PIL import Image
 # Configuración
 # --------------------------------------------------
 
+from src.vectorstore.chroma_store import build_or_load_vectorstore  # ajusta el nombre si es distinto
+
+# Genera la base vectorial la primera vez que la app arranca en el servidor,
+# ya que data/chroma_db no se sube al repositorio (está en .gitignore)
+CHROMA_PATH = Path(__file__).resolve().parents[2] / "data" / "chroma_db"
+
+if not CHROMA_PATH.exists():
+    with st.spinner("Preparando la base de conocimiento por primera vez..."):
+        from src.loaders.pdf_loader import load_pdfs
+        from src.loaders.csv_loader import load_csvs
+        from src.processing.text_splitter import split_documents
+        from src.embeddings.embedding_model import get_embedding_model
+        from src.vectorstore.chroma_store import create_vectorstore
+
+        documentos = load_pdfs() + load_csvs()
+        chunks = split_documents(documentos)
+        modelo = get_embedding_model()
+        create_vectorstore(chunks, modelo)
+
 st.set_page_config(
     page_title="Asistente Río de Vida",
     page_icon="💧",
