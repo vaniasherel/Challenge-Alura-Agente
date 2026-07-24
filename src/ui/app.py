@@ -5,6 +5,7 @@ Interfaz web del asistente utilizando Streamlit.
 """
 
 import sys
+import shutil
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[2]))
@@ -18,22 +19,32 @@ from PIL import Image
 # --------------------------------------------------
 
 # Genera la base vectorial la primera vez que la app arranca en el servidor,
-# ya que data/chroma_db no se sube al repositorio (está en .gitignore)
+# ya que data/chroma_db no se sube al repositorio (está en .gitignore).
+# st.cache_resource asegura que esto corra una sola vez por sesión del
+# servidor, sin importar cuántas veces se recargue el script.
 CHROMA_PATH = Path(__file__).resolve().parents[2] / "data" / "chroma_db"
-CHROMA_DB_FILE = CHROMA_PATH / "chroma.sqlite3"
 
-if not CHROMA_DB_FILE.exists():
-    with st.spinner("Preparando la base de conocimiento por primera vez..."):
-        from src.loaders.pdf_loader import load_pdfs
-        from src.loaders.csv_loader import load_csvs
-        from src.processing.text_splitter import split_documents
-        from src.embeddings.embedding_model import get_embedding_model
-        from src.vectorstore.chroma_store import create_vectorstore
 
-        documentos = load_pdfs() + load_csvs()
-        chunks = split_documents(documentos)
-        modelo = get_embedding_model()
-        create_vectorstore(chunks, modelo)
+@st.cache_resource(show_spinner="Preparando la base de conocimiento por primera vez...")
+def preparar_base_vectorial():
+    from src.loaders.pdf_loader import load_pdfs
+    from src.loaders.csv_loader import load_csvs
+    from src.processing.text_splitter import split_documents
+    from src.embeddings.embedding_model import get_embedding_model
+    from src.vectorstore.chroma_store import create_vectorstore
+
+    # Borra cualquier base vacía o corrupta de intentos anteriores
+    if CHROMA_PATH.exists():
+        shutil.rmtree(CHROMA_PATH)
+
+    documentos = load_pdfs() + load_csvs()
+    chunks = split_documents(documentos)
+    modelo = get_embedding_model()
+    create_vectorstore(chunks, modelo)
+    return True
+
+
+preparar_base_vectorial()
 
 st.set_page_config(
     page_title="Asistente Río de Vida",
