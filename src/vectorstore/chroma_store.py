@@ -10,15 +10,23 @@ import tempfile
 VECTOR_DB = Path(tempfile.gettempdir()) / "chroma_db"
 
 
-def create_vectorstore(chunks, embedding_model):
+def create_vectorstore(chunks, embedding_model, persist=True):
     """
-    Crea la base vectorial y la guarda en disco.
+    Crea la base vectorial. Si persist=True, la guarda en disco (uso local).
+    Si persist=False, la crea en memoria (uso en Streamlit Cloud, evita
+    problemas de permisos de escritura en el servidor).
     """
-    vectorstore = Chroma.from_documents(
-        documents=chunks,
-        embedding=embedding_model,
-        persist_directory=str(VECTOR_DB)
-    )
+    if persist:
+        vectorstore = Chroma.from_documents(
+            documents=chunks,
+            embedding=embedding_model,
+            persist_directory=str(VECTOR_DB)
+        )
+    else:
+        vectorstore = Chroma.from_documents(
+            documents=chunks,
+            embedding=embedding_model,
+        )
     return vectorstore
 
 

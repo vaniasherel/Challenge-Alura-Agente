@@ -40,7 +40,7 @@ def preparar_base_vectorial():
     documentos = load_pdfs() + load_csvs()
     chunks = split_documents(documentos)
     modelo = get_embedding_model()
-    create_vectorstore(chunks, modelo)
+    create_vectorstore(chunks, modelo, persist=False)
     return True
 
 
