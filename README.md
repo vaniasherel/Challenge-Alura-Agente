@@ -29,6 +29,11 @@ En lugar de depender del conocimiento general de un modelo de lenguaje, este asi
 - 🚫 Prevención de alucinaciones: si la información no existe en la documentación, el asistente lo indica honestamente
 - 🔀 Manejo de preguntas ambiguas: enumera todas las opciones relevantes en vez de elegir una al azar
 - 💬 Interfaz web simple con Streamlit
+- 💬 Interfaz conversacional tipo chat
+- 🎨 Tema oscuro personalizado
+- 💧 Identidad visual con mascota y diseño inspirado en agua
+- 🗑️ Botón para reiniciar la conversación
+- 📱 Diseño adaptable para pantallas amplias (layout wide)
 - ✅ Suite de pruebas automatizadas (pytest) + casos de prueba documentados manualmente
 
 ---
@@ -72,7 +77,7 @@ Documentos de la empresa (PDF + CSV)
 | Embeddings | Hugging Face (`paraphrase-multilingual-MiniLM-L12-v2`) |
 | Base de datos vectorial | ChromaDB |
 | Carga de documentos | PyPDFLoader (LangChain Community), Pandas |
-| Interfaz web | Streamlit |
+| Interfaz web | Streamlit (tema personalizado) | 
 | Pruebas | Pytest |
 | Gestión de secretos | python-dotenv |
 
@@ -103,7 +108,7 @@ Challenge-Alura-Agente/
 │   ├── vectorstore/            # Conexión y persistencia con ChromaDB
 │   ├── rag/                    # Recuperación semántica (retriever)
 │   ├── llm/                    # Conexión con Groq y pipeline RAG + LLM
-│   └── ui/                     # Interfaz Streamlit
+│   └── ui/                     # Interfaz Streamlit (Chat UI)
 │
 └── tests/
     ├── test_cases.md           # Casos de prueba documentados manualmente
@@ -162,6 +167,22 @@ La aplicación estará disponible en `http://localhost:8501`.
 
 ---
 
+## 📸 Capturas del proyecto
+
+### Interfaz principal
+
+(Imagen)
+
+### Consulta sobre horarios
+
+(Imagen)
+
+### Consulta sobre cobertura
+
+(Imagen)
+
+---
+
 ## 🧪 Pruebas
 
 Actualmente la suite contiene 8 pruebas automatizadas, todas aprobadas.: carga de documentos, generación de chunks, embeddings, recuperación semántica e integración completa RAG + LLM.
@@ -197,6 +218,16 @@ Durante el desarrollo se enfrentaron y resolvieron varios retos técnicos reales
 - La base documental fue elaborada específicamente para este proyecto educativo (documentos y datos representativos, no de una empresa operando actualmente).
 - Algunos procedimientos internos mencionados en la documentación (ej. protocolo ante un garrafón dañado) están listados como tema, pero su procedimiento detallado no fue redactado — el asistente responde honestamente que no cuenta con esa información en vez de inventarla.
 - El asistente responde únicamente con información contenida en la base documental.
+
+---
+
+## 🚀 Futuras mejoras
+
+- Personalización visual con mascota corporativa.
+- Mejor formato de respuestas utilizando Markdown.
+- Historial persistente de conversaciones.
+- Integración con WhatsApp Business.
+- Panel administrativo para actualizar documentos.
 
 ---
 

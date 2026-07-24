@@ -14,7 +14,7 @@ Julio 2026
 
 # Objetivo del Challenge
 
-Desarrollar un agente de Inteligencia Artificial capaz de responder preguntas en lenguaje natural utilizando información contenida en documentos (PDF y/o CSV) y desplegarlo en Oracle Cloud Infrastructure (OCI).
+Desarrollar un agente de Inteligencia Artificial capaz de responder preguntas en lenguaje natural utilizando información contenida en documentos (PDF y CSV), publicarlo en un repositorio público de GitHub y desplegarlo en una plataforma de alojamiento accesible mediante una URL pública.
 
 ---
 
@@ -48,10 +48,11 @@ Incluye:
 Deploy
 
 Incluye:
-- Publicar la aplicación en OCI
-- Evidencias
-- README
-- Repositorio GitHub
+
+- Publicar la aplicación.
+- Obtener una URL pública.
+- Documentar el despliegue.
+- Actualizar el README.
 
 ---
 
@@ -508,6 +509,14 @@ Observaciones:
 - La interfaz actual corresponde a una primera versión funcional enfocada en validar el funcionamiento del pipeline RAG.
 - En futuras mejoras puede incorporarse una interfaz conversacional utilizando `st.chat_input()` y `st.chat_message()` para ofrecer una experiencia similar a ChatGPT, sin modificar la lógica del backend.
 
+Mejoras posteriores
+
+- Se migró la interfaz a un formato conversacional utilizando `st.chat_input()` y `st.chat_message()`.
+- Se rediseñó la interfaz utilizando `layout="wide"`.
+- Se añadió un tema oscuro personalizado mediante `.streamlit/config.toml`.
+- Se incorporó una identidad visual con una mascota representativa del proyecto.
+- Se agregó un botón para reiniciar la conversación.
+- Se reorganizó la interfaz para mejorar la experiencia del usuario.
 
 ---
 
@@ -553,11 +562,11 @@ Ajustes derivados de las pruebas:
 
 ## Módulo 11
 
-Deploy OCI
+Deploy
 
 Estado:
 
-⏳ Pendiente
+⏳ En preparación
 
 Responsabilidad:
 
@@ -575,11 +584,11 @@ Estado:
 
 Entregables:
 
-- README: ✅ Completado (pendiente agregar evidencia del deploy en OCI una vez publicado)
+- README: 🔄 En actualización (pendiente agregar evidencia del deploy una vez publicado)
 - Repositorio GitHub: ✅ Completado (repositorio público creado y subido)
 - Licencia MIT: ✅ Completado
 - Evidencias del deploy: ⏳ Pendiente (depende del Módulo 11)
-- Capturas del proyecto: ⏳ Pendiente (depende del Módulo 11)
+- Capturas del proyecto: 🟡 En preparación (depende del Módulo 11)
 
 ---
 
@@ -619,7 +628,7 @@ LLM ✅ (Groq)
 Interfaz Streamlit ✅
 │
 ▼
-Deploy OCI ⏳
+Deploy ⏳
 ```
 
 ---
@@ -634,11 +643,31 @@ Deploy OCI ⏳
 | Capa de recuperación (RAG) | ✅ Completada  |
 | Producción y validación de respuestas | ✅ Completada  |
 | Implantación, interfaz y mantenimiento | ✅ Completada  |
-| Deploy OCI | ⏳ Pendiente |
+| Deploy | ⏳ Pendiente |
 | Registrar ejecución del proyecto | ⏳ Pendiente |
-| README | ✅ Completado |
+| README | 🔄 En actualización |
 | Finalizar curso en Alura Page | ⏳ Pendiente |
 
 # Notas
 
 Las decisiones de diseño (estructura modular con `loaders`, `processing`, `embeddings`, `vectorstore`, `rag`, `llm`, `ui` y `utils`, uso de `.env`, organización del proyecto y documentación técnica) son mejoras de ingeniería adoptadas para mantener el proyecto ordenado. Complementan el Challenge, pero no sustituyen sus requisitos oficiales.
+
+# Estado actual del proyecto
+
+Actualmente el proyecto cuenta con:
+
+- ✅ Agente RAG funcional.
+- ✅ Repositorio público en GitHub.
+- ✅ Interfaz conversacional desarrollada en Streamlit.
+- ✅ Base vectorial con ChromaDB.
+- ✅ Recuperación semántica optimizada.
+- ✅ Pruebas automatizadas aprobadas.
+- 🔄 Mejoras visuales en progreso.
+- ⏳ Deploy en Streamlit Cloud pendiente.
+
+---
+
+Versión del documento: 1.1
+Última actualización: Julio 2026
+
+--- 

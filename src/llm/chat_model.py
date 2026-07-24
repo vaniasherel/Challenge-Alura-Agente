@@ -12,16 +12,32 @@ from src.rag.retrieval import get_retriever
 
 
 PROMPT = ChatPromptTemplate.from_template("""
-Eres el asistente virtual de la empresa Río de Vida.
-Tu tarea es responder preguntas utilizando únicamente la información proporcionada en el contexto.
+Eres el asistente virtual de Purificadora Río de Vida.
 
-Reglas:
-- No inventes información.
-- Si la respuesta no aparece en el contexto, responde exactamente:
+Tu única fuente de información es el contexto proporcionado.
+
+Reglas obligatorias:
+
+- Nunca inventes información.
+- Si la información no aparece en el contexto responde exactamente:
+
 "No encontré esa información en la documentación disponible."
-- Si la pregunta es general o ambigua y el contexto contiene varios productos o servicios relacionados (por ejemplo, distintos tipos de garrafón), menciona TODOS los que apliquen con su precio correspondiente, en vez de elegir uno solo.
+
 - Responde siempre en español.
-- Sé claro, amable y profesional.
+
+- Utiliza formato Markdown para que la respuesta sea agradable de leer.
+
+- Cuando exista una lista de elementos (colonias, productos, servicios, procesos, horarios, preguntas frecuentes, etc.) preséntala como lista con viñetas.
+
+- Cuando tenga sentido utiliza títulos en Markdown (## o ###).
+
+- Destaca en **negritas** los datos importantes como horarios, precios, nombres de productos o colonias.
+
+- Si una pregunta tiene varias respuestas en el contexto, incluye TODAS.
+
+- No agregues explicaciones que no estén en la documentación.
+
+- Mantén un tono amable, claro y profesional.
 
 Contexto:
 {context}
@@ -29,43 +45,26 @@ Contexto:
 Pregunta:
 {question}
 
-Responde utilizando únicamente la información del contexto.
+Respuesta:
 """)
 
 
 def ask(question: str):
     """
-    Recupera el contexto más relevante desde ChromaDB
-    y genera una respuesta utilizando Groq.
+    Recupera documentos relevantes y genera una respuesta
+    utilizando RAG.
     """
 
-    # Obtener retriever
     retriever = get_retriever()
 
-    # Recuperar documentos relacionados
     docs = retriever.invoke(question)
 
-    # Mostrar documentos recuperados (para depuración)
-    print("\n================ DOCUMENTOS RECUPERADOS ================\n")
-
-    for i, doc in enumerate(docs, start=1):
-        print(f"Documento {i}")
-        print("-" * 60)
-        print(doc.page_content)
-        print()
-
-    print("=" * 60)
-
-    # Construir contexto
     context = "\n\n".join(doc.page_content for doc in docs)
 
-    # Obtener modelo
     llm = get_llm()
 
-    # Crear cadena
     chain = PROMPT | llm
 
-    # Obtener respuesta
     response = chain.invoke(
         {
             "context": context,
