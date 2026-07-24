@@ -3,10 +3,10 @@ chroma_store.py
 Crea y administra la base de datos vectorial utilizando ChromaDB.
 """
 from pathlib import Path
+import tempfile
 from langchain_chroma import Chroma
 
-# Carpeta donde se guardará la base vectorial
-import tempfile
+# Carpeta donde se guardará la base vectorial (uso local)
 VECTOR_DB = Path(tempfile.gettempdir()) / "chroma_db"
 
 
