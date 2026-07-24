@@ -17,8 +17,6 @@ from PIL import Image
 # Configuración
 # --------------------------------------------------
 
-from src.vectorstore.chroma_store import build_or_load_vectorstore  # ajusta el nombre si es distinto
-
 # Genera la base vectorial la primera vez que la app arranca en el servidor,
 # ya que data/chroma_db no se sube al repositorio (está en .gitignore)
 CHROMA_PATH = Path(__file__).resolve().parents[2] / "data" / "chroma_db"
