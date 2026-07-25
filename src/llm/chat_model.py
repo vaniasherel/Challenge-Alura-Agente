@@ -2,7 +2,7 @@
 chat_model.py
 
 Conecta el Retriever con Groq para implementar
-un flujo básico de Retrieval-Augmented Generation (RAG).
+un flujo Retrieval-Augmented Generation (RAG).
 """
 
 from langchain_core.prompts import ChatPromptTemplate
@@ -19,6 +19,7 @@ Tu única fuente de información es el contexto proporcionado.
 Reglas obligatorias:
 
 - Nunca inventes información.
+
 - Si la información no aparece en el contexto responde exactamente:
 
 "No encontré esa información en la documentación disponible."
@@ -52,14 +53,22 @@ Respuesta:
 def ask(question: str):
     """
     Recupera documentos relevantes y genera una respuesta
-    utilizando RAG.
+    utilizando el flujo RAG.
     """
 
     retriever = get_retriever()
 
     docs = retriever.invoke(question)
 
-    context = "\n\n".join(doc.page_content for doc in docs)
+    # Si el Retriever no recuperó documentos,
+    # no consultamos al LLM.
+    if not docs:
+        return "No encontré esa información en la documentación disponible."
+
+    context = "\n\n".join(
+        doc.page_content
+        for doc in docs
+    )
 
     llm = get_llm()
 

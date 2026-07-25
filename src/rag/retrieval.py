@@ -1,22 +1,30 @@
 """
-retriever.py
+retrieval.py
 
-Carga la base vectorial de ChromaDB y realiza búsquedas semánticas.
+Construye y devuelve el Retriever utilizado por el sistema RAG.
 """
 
-from pathlib import Path
+from src.vectorstore.chroma_store import get_retriever as build_retriever
 
-from langchain_chroma import Chroma
+# Variable global donde se almacenará el vectorstore
+_vectorstore = None
 
-from src.embeddings.embedding_model import get_embedding_model
 
-# Ruta de la base vectorial
-VECTOR_DB = Path(__file__).resolve().parents[2] / "data" / "chroma_db"
+def set_vectorstore(vectorstore):
+    """
+    Guarda la instancia del vectorstore para que pueda
+    ser utilizada por el resto de la aplicación.
+
+    Args:
+        vectorstore (Chroma): Base vectorial creada al iniciar la app.
+    """
+    global _vectorstore
+    _vectorstore = vectorstore
 
 
 def get_retriever(k=15):
     """
-    Devuelve un retriever configurado.
+    Devuelve un retriever utilizando el vectorstore ya cargado.
 
     Args:
         k (int): Número de documentos a recuperar.
@@ -25,33 +33,20 @@ def get_retriever(k=15):
         BaseRetriever
     """
 
-    embedding_model = get_embedding_model()
+    if _vectorstore is None:
+        raise RuntimeError(
+            "La base vectorial aún no ha sido inicializada."
+        )
 
-    vectorstore = Chroma(
-        persist_directory=str(VECTOR_DB),
-        embedding_function=embedding_model
-    )
-
-    return vectorstore.as_retriever(
-        search_kwargs={"k": k}
+    return build_retriever(
+        _vectorstore,
+        k=k,
     )
 
 
 if __name__ == "__main__":
 
-    retriever = get_retriever()
-
-    pregunta = "¿Cuál es el horario de atención?"
-
-    resultados = retriever.invoke(pregunta)
-
-    print(f"\nPregunta: {pregunta}\n")
-
-    for i, doc in enumerate(resultados, start=1):
-
-        print("=" * 60)
-        print(f"Resultado {i}")
-        print("=" * 60)
-
-        print(doc.page_content)
-        print() 
+    print(
+        "Este módulo requiere que el vectorstore sea inicializado "
+        "desde la aplicación principal."
+    )
