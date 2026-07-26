@@ -1,46 +1,56 @@
 # Estado del Proyecto
 
-## Challenge Alura - Agente IA
+## Challenge Alura - Agente
 
 ### Estado general
 
-🟢 **Proyecto funcional y en fase de refinamiento.**
+🟢 **Proyecto finalizado.**
 
-El asistente ya implementa un flujo completo de Retrieval-Augmented Generation (RAG), cuenta con una interfaz conversacional en Streamlit, pruebas automatizadas aprobadas y un repositorio público en GitHub. Actualmente se están realizando mejoras visuales y preparando el despliegue público.
+El asistente implementa un flujo completo de Retrieval-Augmented Generation (RAG), cuenta con una interfaz conversacional desarrollada en Streamlit, pruebas automatizadas aprobadas, documentación técnica completa, repositorio público en GitHub y despliegue exitoso mediante Streamlit Community Cloud.
 
 ---
 
 # Módulos implementados
 
-* ✅ Módulo 1 - PDF Loader
-* ✅ Módulo 2 - CSV Loader
-* ✅ Módulo 3 - Text Splitter
-* ✅ Módulo 4 - Conexión con Groq (LLM)
-* ✅ Módulo 5 - Embeddings (Hugging Face)
-* ✅ Módulo 6 - Base Vectorial (ChromaDB)
-* ✅ Módulo 7 - Retriever
-* ✅ Módulo 8 - Chat Model (Pipeline RAG)
-* ✅ Módulo 9 - Interfaz conversacional con Streamlit
-* ✅ Módulo 10 - Pruebas automatizadas (Pytest)
+- ✅ Módulo 1 - PDF Loader
+- ✅ Módulo 2 - CSV Loader
+- ✅ Módulo 3 - Text Splitter
+- ✅ Módulo 4 - Conexión con Groq (LLM)
+- ✅ Módulo 5 - Embeddings (Hugging Face)
+- ✅ Módulo 6 - Base Vectorial (ChromaDB)
+- ✅ Módulo 7 - Retriever
+- ✅ Módulo 8 - Pipeline RAG
+- ✅ Módulo 9 - Interfaz Streamlit
+- ✅ Módulo 10 - Pruebas automatizadas
+- ✅ Módulo 11 - Deploy
+- ✅ Módulo 12 - Documentación final
 
 ---
 
 # Funcionalidades implementadas
 
-* ✅ Lectura automática de documentos PDF.
-* ✅ Lectura automática de archivos CSV.
-* ✅ División inteligente de documentos en chunks.
-* ✅ Generación de embeddings multilingües.
-* ✅ Base vectorial persistente con ChromaDB.
-* ✅ Recuperación semántica mediante Retriever.
-* ✅ Generación de respuestas utilizando RAG.
-* ✅ Prevención de alucinaciones mediante Prompt Engineering.
-* ✅ Manejo de preguntas ambiguas mostrando todas las opciones relevantes.
-* ✅ Interfaz conversacional desarrollada con Streamlit.
-* ✅ Historial de conversación.
-* ✅ Botón para reiniciar la conversación.
-* ✅ Identidad visual inicial del proyecto.
-* ✅ Repositorio público en GitHub.
+- ✅ Lectura automática de documentos PDF.
+- ✅ Lectura automática de archivos CSV.
+- ✅ División inteligente de documentos en chunks.
+- ✅ Generación de embeddings multilingües.
+- ✅ Base vectorial con ChromaDB.
+- ✅ Recuperación semántica mediante Retriever.
+- ✅ Generación de respuestas utilizando RAG.
+- ✅ Prevención de alucinaciones mediante Prompt Engineering.
+- ✅ Manejo de preguntas ambiguas mostrando todas las opciones relevantes.
+- ✅ Interfaz conversacional desarrollada con Streamlit.
+- ✅ Historial de conversación.
+- ✅ Botón para reiniciar la conversación.
+- ✅ Generación automática del Vector Store al iniciar la aplicación.
+- ✅ Uso de `st.cache_resource` para optimizar la carga.
+- ✅ Sidebar informativo.
+- ✅ Tema oscuro personalizado.
+- ✅ Mascota e identidad visual personalizada.
+- ✅ Icono personalizado.
+- ✅ Spinner durante las consultas.
+- ✅ Mensaje inicial del asistente.
+- ✅ Repositorio público en GitHub.
+- ✅ Aplicación desplegada mediante Streamlit Community Cloud.
 
 ---
 
@@ -65,7 +75,7 @@ Se realizaron pruebas funcionales sobre todos los componentes del sistema:
 8/8 pruebas automatizadas aprobadas.
 ```
 
-La suite verifica:
+La suite de pruebas verifica:
 
 * Carga de documentos PDF.
 * Carga de archivos CSV.
@@ -87,6 +97,7 @@ La suite verifica:
 * PyPDFLoader
 * Pandas
 * Pytest
+* python-dotenv
 
 ---
 
@@ -94,21 +105,44 @@ La suite verifica:
 
 | Componente             | Estado              |
 | ---------------------- | ------------------- |
-| Base documental        | ✅ Completa          |
-| Pipeline RAG           | ✅ Completo          |
-| Base vectorial         | ✅ Completa          |
-| Recuperación semántica | ✅ Optimizada        |
-| Interfaz Streamlit     | ✅ Funcional         |
-| Repositorio GitHub     | ✅ Publicado         |
-| Documentación          | 🔄 En actualización |
-| Deploy público         | ⏳ Pendiente         |
+| Base documental        | ✅ Completa         |
+| Pipeline RAG           | ✅ Completo         |
+| Base vectorial         | ✅ Completa         |
+| Recuperación semántica | ✅ Optimizada       |
+| Interfaz Streamlit     | ✅ Finalizada       |
+| Repositorio GitHub     | ✅ Público          |
+| Documentación          | ✅ Completada       |
+| Deploy                 | ✅ Completado       |
 
 ---
 
-# Próximas actividades
+# Proyecto finalizado
 
-* ⏳ Finalizar mejoras visuales de la interfaz.
-* ⏳ Desplegar la aplicación en Streamlit Cloud.
-* ⏳ Incorporar capturas de pantalla al README.
-* ⏳ Agregar la URL pública del proyecto.
-* ⏳ Registrar la versión final del proyecto.
+Entregables completados:
+
+- ✅ Agente RAG funcional.
+- ✅ Base documental en PDF y CSV.
+- ✅ Repositorio público en GitHub.
+- ✅ Documentación técnica.
+- ✅ README completo.
+- ✅ Licencia MIT.
+- ✅ Evidencias del proyecto.
+- ✅ Deploy en Streamlit Community Cloud.
+
+--- 
+
+## Aplicación desplegada
+
+URL pública:
+
+https://challenge-alura-agente-kytcufk4awqzufhyfsgscx.streamlit.app
+
+
+---
+
+Versión: 2.0
+
+Última actualización:
+26 de julio de 2026
+
+---

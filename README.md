@@ -13,6 +13,18 @@ Un asistente inteligente que responde preguntas en lenguaje natural sobre **Puri
 
 ---
 
+## 🌐 Aplicación desplegada
+
+Puedes probar la versión desplegada del proyecto aquí:
+
+👉 https://challenge-alura-agente-kytcufk4awqzufhyfsgscx.streamlit.app
+
+Repositorio:
+
+👉 https://github.com/vaniasherel/Challenge-Alura-Agente
+
+--- 
+
 ## 📖 Visión general
 
 En lugar de depender del conocimiento general de un modelo de lenguaje, este asistente **recupera información real** desde los documentos oficiales de la empresa (perfil, preguntas frecuentes, procesos internos, catálogo de productos y rutas de reparto) y genera respuestas basadas únicamente en esa información — evitando inventar datos que no existen en la documentación.
@@ -24,8 +36,8 @@ En lugar de depender del conocimiento general de un modelo de lenguaje, este asi
 - 📄 Ingesta automática de documentos PDF y CSV
 - ✂️ División inteligente de texto en fragmentos (chunking)
 - 🧠 Embeddings semánticos multilingües con Hugging Face (100% local, sin costo)
-- 🔍 Base de datos vectorial persistente con ChromaDB
-- 🤖 Generación de respuestas mediante Groq API utilizando Llama 3.3 70B Versatile.
+- 🔍 Base de datos vectorial con ChromaDB (generada automáticamente al iniciar la aplicación)
+- 🤖 Generación de respuestas mediante Groq API utilizando Llama 3.3 70B Versatile
 - 🚫 Prevención de alucinaciones: si la información no existe en la documentación, el asistente lo indica honestamente
 - 🔀 Manejo de preguntas ambiguas: enumera todas las opciones relevantes en vez de elegir una al azar
 - 💬 Interfaz web simple con Streamlit
@@ -53,7 +65,7 @@ Documentos de la empresa (PDF + CSV)
      Embeddings                (Hugging Face · paraphrase-multilingual-MiniLM-L12-v2)
             │
             ▼
-     ChromaDB                  (base vectorial persistente)
+     ChromaDB                  (base vectorial)
             │
             ▼
      Retriever           (Semantic Search, k=15)
@@ -87,35 +99,43 @@ Documentos de la empresa (PDF + CSV)
 
 ```
 Challenge-Alura-Agente/
-├── .env                        # Variables de entorno (no se sube al repo)
-├── .gitignore
-├── LICENSE
-├── README.md
-├── requirements.txt
-├── pytest.ini
+├── .streamlit/
+│   └── config.toml             # Configuración del tema de Streamlit
+│
+├── assets/
+│   └── gotita.png              # Mascota del asistente
 │
 ├── data/
-│   ├── pdf/                    # Documentos PDF de la empresa
-│   ├── csv/                    # Catálogo de productos y rutas de reparto
-│   └── chroma_db/               # Base vectorial persistente (generada localmente)
+│   ├── pdf/                    # Documentación PDF de la empresa
+│   └── csv/                    # Catálogo de productos y rutas
 │
-├── docs/                       # Documentación técnica del proyecto
+├── docs/
+│   ├── images/                 # Capturas y GIF del proyecto
+│   ├── Challenge-Alura.md      # Documentación técnica
+│   └── PROJECT_STATUS.md       # Bitácora del desarrollo
 │
 ├── src/
 │   ├── loaders/                # Carga de PDF y CSV
-│   ├── processing/             # División en chunks
-│   ├── embeddings/             # Modelo de embeddings (Hugging Face)
-│   ├── vectorstore/            # Conexión y persistencia con ChromaDB
-│   ├── rag/                    # Recuperación semántica (retriever)
-│   ├── llm/                    # Conexión con Groq y pipeline RAG + LLM
-│   └── ui/                     # Interfaz Streamlit (Chat UI)
+│   ├── processing/             # División de documentos en chunks
+│   ├── embeddings/             # Modelo de embeddings
+│   ├── vectorstore/            # Creación del Vector Store (Chroma)
+│   ├── rag/                    # Recuperación semántica (Retriever)
+│   ├── llm/                    # Pipeline RAG + Groq
+│   └── ui/                     # Interfaz Streamlit
 │
-└── tests/
-    ├── test_cases.md           # Casos de prueba documentados manualmente
-    ├── test_loaders.py
-    ├── test_processing.py
-    ├── test_rag.py
-    └── test_chat_model.py
+├── tests/
+│   ├── test_cases.md           # Casos de prueba manuales
+│   ├── test_chat_model.py
+│   ├── test_loaders.py
+│   ├── test_processing.py
+│   └── test_rag.py
+│
+├── .env                        # Variables de entorno (no se sube)
+├── .gitignore
+├── LICENSE
+├── pytest.ini
+├── README.md
+└── requirements.txt
 ```
 
 ---
@@ -130,7 +150,7 @@ Challenge-Alura-Agente/
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/TU-USUARIO/challenge-alura-agente.git
+git clone https://github.com/VaniaSherel/Challenge-Alura-Agente.git
 cd challenge-alura-agente
 ```
 
@@ -151,41 +171,68 @@ Crea un archivo `.env` en la raíz del proyecto:
 GROQ_API_KEY=tu_clave_de_groq
 ```
 
-### 4. Generar la base vectorial (primera vez)
-
-```bash
-python -m src.vectorstore.chroma_store
-```
-
-### 5. Ejecutar la aplicación
+### 4. Ejecutar la aplicación
 
 ```bash
 streamlit run src/ui/app.py
 ```
 
-La aplicación estará disponible en `http://localhost:8501`.
+> **Nota:** La primera vez que se ejecuta la aplicación, la base vectorial se genera automáticamente a partir de los documentos PDF y CSV. No es necesario ejecutar ningún proceso adicional.
 
 ---
 
 ## 📸 Capturas del proyecto
 
-### Interfaz principal
+A continuación se muestran algunas consultas realizadas al asistente desplegado en Streamlit Community Cloud.
 
-(Imagen)
+### Pantalla principal
 
-### Consulta sobre horarios
+![Pantalla principal](docs/images/home.png)
 
-(Imagen)
+---
 
-### Consulta sobre cobertura
+### Consulta sobre productos
 
-(Imagen)
+![Consulta de productos](docs/images/productos.png)
+
+---
+
+### Consulta sobre servicios
+
+![Consulta de servicios](docs/images/servicios.png)
+
+---
+
+### Consulta sobre procesos internos
+
+![Consulta de procesos](docs/images/procesos.png)
+
+---
+
+### Consulta sin información disponible
+
+El asistente responde únicamente con información presente en la documentación. Cuando una respuesta no existe, lo indica explícitamente.
+
+![Consulta sin información](docs/images/sin_informacion.png)
+
+---
+
+## 🎥 Demostración de la aplicación
+
+![Demo del asistente](docs/images/demo.gif)
+
 
 ---
 
 ## 🧪 Pruebas
 
-Actualmente la suite contiene 8 pruebas automatizadas, todas aprobadas.: carga de documentos, generación de chunks, embeddings, recuperación semántica e integración completa RAG + LLM.
+Actualmente la suite contiene **8 pruebas automatizadas**, todas aprobadas, que validan:
+
+- Carga de documentos
+- Generación de chunks
+- Embeddings
+- Recuperación semántica
+- Integración completa RAG + LLM
 
 ```bash
 pytest tests/ -v
@@ -223,11 +270,38 @@ Durante el desarrollo se enfrentaron y resolvieron varios retos técnicos reales
 
 ## 🚀 Futuras mejoras
 
-- Personalización visual con mascota corporativa.
-- Mejor formato de respuestas utilizando Markdown.
+- Memoria conversacional.
 - Historial persistente de conversaciones.
 - Integración con WhatsApp Business.
 - Panel administrativo para actualizar documentos.
+- Carga dinámica de documentos desde la interfaz.
+
+---
+
+## ✅ Resultados obtenidos
+
+El asistente fue desplegado exitosamente en Streamlit Community Cloud y permite:
+
+- Consultar productos y servicios.
+- Obtener horarios y cobertura.
+- Recuperar procesos internos mediante búsqueda semántica.
+- Responder únicamente con información contenida en la documentación.
+- Indicar cuando una respuesta no existe en la base documental, evitando alucinaciones del modelo.
+- Disponible públicamente mediante Streamlit Community Cloud.
+
+---
+
+## 📚 Ejemplos de preguntas
+
+Puedes realizar consultas como:
+
+- ¿Qué productos ofrece la empresa?
+- ¿Qué servicios ofrecen?
+- ¿Cuál es el horario de atención?
+- ¿Qué colonias tienen cobertura?
+- ¿Cuánto cuesta un garrafón vacío?
+- ¿Qué procesos internos existen?
+- ¿Quién autoriza una compra?
 
 ---
 

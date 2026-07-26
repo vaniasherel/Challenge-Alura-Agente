@@ -2,19 +2,22 @@
 ## Estado del Proyecto
 
 **Proyecto:**
-Asistente Inteligente para Purificadora Río de Vida
+Agente Inteligente para Purificadora Río de Vida
 
 **Autor:**
 Vania Sherel
 
 **Última actualización:**
-Julio 2026
+26 de Julio 2026
 
 ---
 
 # Objetivo del Challenge
 
 Desarrollar un agente de Inteligencia Artificial capaz de responder preguntas en lenguaje natural utilizando información contenida en documentos (PDF y CSV), publicarlo en un repositorio público de GitHub y desplegarlo en una plataforma de alojamiento accesible mediante una URL pública.
+
+Estado:
+✅ Objetivo alcanzado.
 
 ---
 
@@ -40,7 +43,7 @@ Incluye:
 - Procesamiento del contenido
 - Indexación
 - Implementación de RAG
-- Generación de respuestas
+- Generación de respuestas en lenguaje natural
 
 ---
 
@@ -54,6 +57,14 @@ Incluye:
 - Documentar el despliegue.
 - Actualizar el README.
 
+Estado:
+
+✅ Completado
+
+URL pública:
+
+https://challenge-alura-agente-kytcufk4awqzufhyfsgscx.streamlit.app
+
 ---
 
 # Organización del Proyecto
@@ -62,16 +73,43 @@ Actualmente el proyecto se organiza así:
 
 ```
 Challenge-Alura-Agente/
+├── .streamlit/
+│   └── config.toml
+│
+├── assets/
+│   └── gotita.png
+│
+├── data/
+│   ├── csv/
+│   └── pdf/
+│
+├── docs/
+│   ├── images/
+│   ├── Challenge-Alura.md
+│   └── PROJECT_STATUS.md
+│
+├── src/
+│   ├── embeddings/
+│   ├── llm/
+│   ├── loaders/
+│   ├── processing/
+│   ├── rag/
+│   ├── ui/
+│   └── vectorstore/
+│
+├── tests/
+│   ├── test_cases.md
+│   ├── test_chat_model.py
+│   ├── test_loaders.py
+│   ├── test_processing.py
+│   └── test_rag.py
+│
 ├── .env
 ├── .gitignore
-├── .venv
 ├── LICENSE
 ├── README.md
-├── requirements.txt
-├── data
-├── docs
-├── src
-└── tests
+├── pytest.ini
+└── requirements.txt
 ```
 
 ---
@@ -186,7 +224,7 @@ Configuración realizada:
 - .env
 - .gitignore
 
-Tecnologías y dependencias principales
+Tecnologías y dependencias principales:
 
 - LangChain
 - LangChain Community
@@ -206,17 +244,28 @@ Tecnologías y dependencias principales
 # Arquitectura del proyecto
 
 ```
-src/
-
-
-├── loaders/
-├── processing/
-├── embeddings/
-├── vectorstore/
-├── rag/
-├── llm/
-├── ui/
-└── utils/
+Documentos PDF + CSV
+        │
+        ▼
+PDF Loader / CSV Loader
+        │
+        ▼
+Text Splitter
+        │
+        ▼
+Embeddings (Hugging Face)
+        │
+        ▼
+ChromaDB (Vector Store)
+        │
+        ▼
+Retriever (RAG)
+        │
+        ▼
+LLM (Groq - Llama 3.3 70B)
+        │
+        ▼
+Interfaz Streamlit
 ```
 
 ---
@@ -378,6 +427,8 @@ Notas técnicas:
 
 ## Módulo 6 - ChromaDB (Vector Store)
 
+Archivo:
+
 ```
 src/vectorstore/chroma_store.py
 ```
@@ -388,13 +439,14 @@ Estado:
 
 Responsabilidad:
 
-- Almacenar de forma persistente los embeddings generados para cada chunk.
-- Almacenar los vectores de forma persistente en ChromaDB.
+- Construir la base vectorial utilizando ChromaDB.
+- Generar automáticamente los embeddings al iniciar la aplicación.
+- Crear el Vector Store en memoria, compatible con Streamlit Community Cloud.
 
 Resultado de la prueba:
 
-- 53 chunks convertidos en embeddings y almacenados correctamente.
-- Base de datos persistente creada en `data/chroma_db`.
+- 53 chunks convertidos en embeddings e indexados correctamente en ChromaDB.
+- La base vectorial se genera automáticamente al iniciar la aplicación.
 
 Notas:
 
@@ -416,7 +468,7 @@ Estado:
 
 Responsabilidad:
 
-- Cargar la base vectorial de ChromaDB.
+- Utilizar la base vectorial generada al iniciar la aplicación.
 - Recuperar los k chunks más relevantes según la pregunta del usuario.
 
 Resultado de la prueba:
@@ -506,7 +558,7 @@ Ajustes realizados:
 
 Observaciones:
 
-- La interfaz actual corresponde a una primera versión funcional enfocada en validar el funcionamiento del pipeline RAG.
+- La interfaz corresponde a la versión final del proyecto presentada para el Challenge Alura Agente, incorporando una experiencia conversacional, identidad visual personalizada y optimizaciones para Streamlit Community Cloud.
 - En futuras mejoras puede incorporarse una interfaz conversacional utilizando `st.chat_input()` y `st.chat_message()` para ofrecer una experiencia similar a ChatGPT, sin modificar la lógica del backend.
 
 Mejoras posteriores
@@ -516,7 +568,15 @@ Mejoras posteriores
 - Se añadió un tema oscuro personalizado mediante `.streamlit/config.toml`.
 - Se incorporó una identidad visual con una mascota representativa del proyecto.
 - Se agregó un botón para reiniciar la conversación.
-- Se reorganizó la interfaz para mejorar la experiencia del usuario.
+- Se reorganizó la interfaz para mejorar la experiencia del usuario:
+  - Sidebar informativo.
+  - Generación automática del Vector Store al iniciar.
+  - Uso de `st.cache_resource`.
+  - Mascota.
+  - Icono personalizado.
+  - Layout wide.
+  - Spinner durante consultas.
+  - Mensaje inicial del asistente.
 
 ---
 
@@ -560,37 +620,44 @@ Ajustes derivados de las pruebas:
 
 ---
 
-## Módulo 11
-
-Deploy
+## Módulo 11 - Deploy
 
 Estado:
 
-⏳ En preparación
+✅ Completado
 
 Responsabilidad:
 
-- Publicar la aplicación en Oracle Cloud Infrastructure.
+- Despliegue exitoso en Streamlit Community Cloud.
+- Configuración de variables de entorno.
+- Configuración del repositorio GitHub.
+- Validación del funcionamiento desde la URL pública.
+
+Resultado:
+
+La aplicación quedó disponible públicamente en:
+
+https://challenge-alura-agente-kytcufk4awqzufhyfsgscx.streamlit.app
 
 ---
 
-## Módulo 12
-
-Documentación final
+## Módulo 12 - Documentación final
 
 Estado:
 
-🟡 En progreso
+✅ Completado
 
 Entregables:
 
-- README: 🔄 En actualización (pendiente agregar evidencia del deploy una vez publicado)
+- README: ✅ Finalizado
 - Repositorio GitHub: ✅ Completado (repositorio público creado y subido)
 - Licencia MIT: ✅ Completado
-- Evidencias del deploy: ⏳ Pendiente (depende del Módulo 11)
-- Capturas del proyecto: 🟡 En preparación (depende del Módulo 11)
+- Evidencias del deploy: ✅ Documentado
+- Capturas del proyecto: ✅ Agregadas
+- GIF: ✅ Agregado
 
 ---
+
 
 # Pipeline del sistema
 
@@ -628,7 +695,7 @@ LLM ✅ (Groq)
 Interfaz Streamlit ✅
 │
 ▼
-Deploy ⏳
+Deploy ✅
 ```
 
 ---
@@ -643,14 +710,14 @@ Deploy ⏳
 | Capa de recuperación (RAG) | ✅ Completada  |
 | Producción y validación de respuestas | ✅ Completada  |
 | Implantación, interfaz y mantenimiento | ✅ Completada  |
-| Deploy | ⏳ Pendiente |
-| Registrar ejecución del proyecto | ⏳ Pendiente |
-| README | 🔄 En actualización |
+| Deploy | ✅ Completado |
+| Registrar ejecución del proyecto | ✅ Completado |
+| README | ✅ Completado |
 | Finalizar curso en Alura Page | ⏳ Pendiente |
 
 # Notas
 
-Las decisiones de diseño (estructura modular con `loaders`, `processing`, `embeddings`, `vectorstore`, `rag`, `llm`, `ui` y `utils`, uso de `.env`, organización del proyecto y documentación técnica) son mejoras de ingeniería adoptadas para mantener el proyecto ordenado. Complementan el Challenge, pero no sustituyen sus requisitos oficiales.
+Las decisiones de diseño (estructura modular con `loaders`, `processing`, `embeddings`, `vectorstore`, `rag`, `llm`, `ui`, uso de `.env`, organización del proyecto y documentación técnica) son mejoras de ingeniería adoptadas para mantener el proyecto ordenado. Complementan el Challenge, pero no sustituyen sus requisitos oficiales.
 
 # Estado actual del proyecto
 
@@ -658,16 +725,38 @@ Actualmente el proyecto cuenta con:
 
 - ✅ Agente RAG funcional.
 - ✅ Repositorio público en GitHub.
-- ✅ Interfaz conversacional desarrollada en Streamlit.
+- ✅ Documentación técnica completa.
+- ✅ Base documental en PDF y CSV.
+- ✅ Embeddings con Hugging Face.
 - ✅ Base vectorial con ChromaDB.
-- ✅ Recuperación semántica optimizada.
-- ✅ Pruebas automatizadas aprobadas.
-- 🔄 Mejoras visuales en progreso.
-- ⏳ Deploy en Streamlit Cloud pendiente.
+- ✅ Recuperación semántica mediante RAG.
+- ✅ Modelo Llama 3.3 70B (Groq).
+- ✅ Interfaz conversacional con Streamlit.
+- ✅ Tema personalizado.
+- ✅ Mascota e identidad visual.
+- ✅ Aplicación desplegada en Streamlit Community Cloud.
+- ✅ Suite de pruebas automatizadas.
+- ✅ Casos de prueba manuales documentados.
+- ✅ README final.
+- ✅ Licencia MIT.
 
 ---
 
-Versión del documento: 1.1
-Última actualización: Julio 2026
+# Conclusión
 
---- 
+El proyecto cumple con los tres objetivos principales del Challenge Alura Agente:
+
+- Organización y procesamiento de documentos PDF y CSV.
+- Implementación de un sistema RAG con LangChain, ChromaDB, Hugging Face y Groq.
+- Despliegue exitoso mediante Streamlit Community Cloud con repositorio público y documentación completa.
+
+El asistente responde preguntas utilizando únicamente la información contenida en la base documental, evitando generar respuestas inventadas cuando la información no está disponible.
+
+---
+
+Versión: 2.0
+
+Última actualización:
+26 de julio de 2026
+
+---
