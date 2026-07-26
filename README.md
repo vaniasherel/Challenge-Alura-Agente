@@ -291,17 +291,19 @@ El asistente fue desplegado exitosamente en Streamlit Community Cloud y permite:
 
 ---
 
-## 📚 Ejemplos de preguntas
+## 📚 Ejemplos de preguntas y respuestas
 
-Puedes realizar consultas como:
+**Pregunta:** ¿Qué productos ofrece la empresa?
+**Respuesta:** La empresa ofrece los siguientes productos: Agua purificada (garrafón de 20 litros, $35.00 MXN) y Garrafón vacío (envase nuevo de 20 litros, $150.00 MXN).
 
-- ¿Qué productos ofrece la empresa?
-- ¿Qué servicios ofrecen?
-- ¿Cuál es el horario de atención?
-- ¿Qué colonias tienen cobertura?
-- ¿Cuánto cuesta un garrafón vacío?
-- ¿Qué procesos internos existen?
-- ¿Quién autoriza una compra?
+**Pregunta:** ¿Cuánto cuesta un garrafón vacío?
+**Respuesta:** El precio de un garrafón vacío es de $150.00 MXN. Este es un envase nuevo para intercambio.
+
+**Pregunta:** ¿Qué colonias tienen cobertura?
+**Respuesta:** Centro, Gaviotas, Carrizal, Tamulté y Deportiva cuentan con cobertura, sujeta a disponibilidad de rutas y horario habitual.
+
+**Pregunta:** ¿Tienen servicio a domicilio en Cancún?
+**Respuesta:** No encontré esa información en la documentación disponible.
 
 ---
 
